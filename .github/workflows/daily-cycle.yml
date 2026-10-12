@@ -1,0 +1,98 @@
+name: "Рабочий день компании"
+
+on:
+  schedule:
+    - cron: "17 6 * * *"  # каждый день в 09:17 по Москве (GitHub может задержать на 5–30 минут)
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "Поручение директору на сегодня (можно оставить пустым)"
+        required: false
+        default: ""
+      dry_run:
+        description: "Сухой прогон: ничего не тратить и не публиковать"
+        type: boolean
+        default: false
+
+concurrency:
+  group: company-state
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  workday:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      FAL_KEY: ${{ secrets.FAL_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_OWNER_ID: ${{ secrets.TELEGRAM_OWNER_ID }}
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+      YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+      GH_PAT: ${{ secrets.GH_PAT }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+      PYTHONUTF8: "1"
+    steps:
+      - name: Открыть офис
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+
+      - name: Установить инструменты
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core > /dev/null
+          pip install -q -r tools/requirements.txt
+          npm install -g --silent @anthropic-ai/claude-code
+          git config user.name "AI Company"
+          git config user.email "ai-company@users.noreply.github.com"
+
+      - name: Проверить ключи
+        run: python tools/doctor.py
+
+      - name: Прочитать ответы собственника в Telegram
+        run: python tools/telegram_bot.py poll || true
+
+      - name: Продлить токен Instagram (по понедельникам)
+        if: github.event_name == 'schedule'
+        run: |
+          if [ "$(TZ=Europe/Moscow date +%u)" = "1" ]; then python tools/instagram.py refresh-token || true; fi
+
+      - name: Директор проводит рабочий день
+        env:
+          TASK: ${{ inputs.task }}
+        run: |
+          claude -p "Ты — Генеральный директор компании (см. CLAUDE.md). Проведи рабочий день строго по инструкции из файла .claude/commands/daily-cycle.md. Поручение собственника на сегодня: ${TASK:-нет}." \
+            --model sonnet \
+            --max-turns 250 \
+            --permission-mode acceptEdits \
+            --allowedTools "Bash(python tools/*)" "Bash(python3 tools/*)" "Bash(git status*)" "Bash(git diff*)" "Bash(git log*)" "Bash(ls*)" "Bash(date*)" "Read" "Write" "Edit" "Glob" "Grep" "WebSearch" "WebFetch" "Task" "Agent" \
+            --output-format text
+
+      - name: Сохранить работу компании
+        if: always()
+        run: |
+          git add -A company config
+          if git diff --cached --quiet; then echo "Изменений нет"; exit 0; fi
+          git commit -q -m "Рабочий день $(TZ=Europe/Moscow date +%d.%m.%Y)"
+          git pull -q --rebase origin "${GITHUB_REF_NAME}"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Сообщить собственнику о сбое
+        if: failure()
+        run: |
+          python tools/office.py cycle fail || true
+          python tools/telegram_bot.py send "⚠️ Рабочий день прервался с ошибкой. Подробности: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" || true

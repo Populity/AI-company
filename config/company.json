@@ -1,0 +1,49 @@
+{
+  "company_name": "AI Company",
+  "owner_name": "Собственник",
+  "timezone": "Europe/Moscow",
+  "language_content": "en",
+  "language_reports": "ru",
+  "audience": "worldwide, English-speaking",
+  "format": "recurring AI character, vertical short series",
+  "niche": null,
+  "founded": null,
+  "platforms": {
+    "youtube": {
+      "enabled": true,
+      "mode": "manual",
+      "privacy": "public",
+      "category_id": "23",
+      "note": "mode=manual пока проект Google не прошёл проверку YouTube API; потом поставь api"
+    },
+    "instagram": {
+      "enabled": true,
+      "api_version": "v25.0"
+    }
+  },
+  "approval": {
+    "mode": "manual_until",
+    "manual_until": null,
+    "trial_days": 14,
+    "note": "manual — всегда через собственника; auto — сразу; manual_until — через собственника до даты, потом автопилот"
+  },
+  "production": {
+    "episodes_per_day": 1,
+    "max_clips_per_episode": 2,
+    "max_seconds_per_episode": 12,
+    "max_retries_per_clip": 1,
+    "aspect_ratio": "9:16",
+    "captions": true
+  },
+  "budget": {
+    "monthly_rub": 2000,
+    "usd_rub_rate": 90,
+    "monthly_usd": 22,
+    "reserve_share": 0.1,
+    "note": "monthly_usd = monthly_rub / usd_rub_rate; Финансы обновляют курс раз в месяц"
+  },
+  "schedule": {
+    "daily_cycle_msk": "09:17"
+  },
+  "paused": false
+}

@@ -1,0 +1,46 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python tools/*)",
+      "Bash(python3 tools/*)",
+      "Bash(DRY_RUN=1 python tools/*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git pull*)",
+      "Bash(git push*)",
+      "Bash(ls*)",
+      "Bash(date*)",
+      "Read",
+      "Write(company/**)",
+      "Write(media/**)",
+      "Edit(company/**)",
+      "Edit(config/**)",
+      "Glob",
+      "Grep",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(./.env)",
+      "Bash(env)",
+      "Bash(printenv*)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(rm -rf*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Edit(.github/**)",
+      "Write(.github/**)",
+      "Edit(tools/publish.py)",
+      "Edit(tools/budget.py)"
+    ]
+  },
+  "env": {
+    "PYTHONUTF8": "1",
+    "PYTHONIOENCODING": "utf-8"
+  }
+}

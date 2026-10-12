@@ -1,0 +1,29 @@
+{
+  "_note": "Модели fal.ai и цены (проверено в октябре 2026). Финансы сверяют цены на fal.ai/models раз в месяц. Чтобы сменить модель, поменяй endpoint, params и цену — код трогать не нужно.",
+  "image_t2i": {
+    "endpoint": "fal-ai/nano-banana",
+    "price_usd": 0.039,
+    "params": {"output_format": "png"},
+    "use": "эталонные портреты персонажа и фоны"
+  },
+  "image_edit": {
+    "endpoint": "fal-ai/nano-banana/edit",
+    "price_usd": 0.039,
+    "params": {"output_format": "png"},
+    "use": "кадр сцены: персонаж по эталону в новой обстановке — держит внешность героя"
+  },
+  "video_i2v": {
+    "endpoint": "fal-ai/bytedance/seedance/v1.5/pro/image-to-video",
+    "price_usd_per_second": 0.055,
+    "default_duration": 8,
+    "durations": [4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "params": {"resolution": "720p", "aspect_ratio": "9:16", "generate_audio": true, "camera_fixed": false},
+    "use": "оживляет кадр, сам озвучивает: реплику пиши в промпте в кавычках — персонаж её произнесёт с движением губ"
+  },
+  "alternatives": {
+    "_note": "Дороже, но качественнее — для важных роликов, если позволит бюджет. Параметры сверить на странице модели.",
+    "kling_3_pro_audio": {"model": "Kling 3.0 Pro (со звуком)", "price_usd_per_second": 0.168},
+    "seedance_2_fast": {"model": "Seedance 2.0 Fast", "price_usd_per_second": 0.2419},
+    "veo_3_1_audio": {"model": "Veo 3.1 (со звуком)", "price_usd_per_second": 0.40}
+  }
+}

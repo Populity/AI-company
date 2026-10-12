@@ -1,0 +1,160 @@
+{
+ "version": 1,
+ "company": {
+  "name": "Gadget Grandpa",
+  "owner": "Собственник",
+  "niche": "Смешной дедушка разбирается в новых гаджетах",
+  "founded": "2026-10-13"
+ },
+ "updated_at": "2026-10-12T16:23:43+00:00",
+ "cycle": {
+  "status": "working",
+  "started_at": "2026-10-12T16:02:43+00:00",
+  "finished_at": null,
+  "next_run": null,
+  "run_url": null
+ },
+ "agents": {
+  "director": {
+   "name": "Директор",
+   "role": "Управляет компанией, принимает решения",
+   "state": "working",
+   "task": "Проверяю сценарий серии про робота-пылесоса",
+   "since": "2026-10-12T16:22:43+00:00"
+  },
+  "trend-scout": {
+   "name": "Трендвотчер",
+   "role": "Ищет тренды, форматы и звуки",
+   "state": "done",
+   "task": "Нашёл 4 тренда: лучший — «офисные суеверия»",
+   "since": "2026-10-12T16:10:43+00:00"
+  },
+  "showrunner": {
+   "name": "Шоураннер",
+   "role": "Придумывает серии и пишет сценарии",
+   "state": "working",
+   "task": "Пишу сценарий: «Robot vacuum has a crush»",
+   "since": "2026-10-12T16:18:43+00:00"
+  },
+  "producer": {
+   "name": "Продакшн",
+   "role": "Генерирует и монтирует видео",
+   "state": "waiting",
+   "task": "Жду сценарий от шоураннера",
+   "since": "2026-10-12T16:18:43+00:00"
+  },
+  "publisher": {
+   "name": "SMM",
+   "role": "Готовит публикации и выкладывает",
+   "state": "idle",
+   "task": "Свободен",
+   "since": "2026-10-12T15:44:43+00:00"
+  },
+  "analyst": {
+   "name": "Аналитик",
+   "role": "Считает просмотры и находит, что работает",
+   "state": "done",
+   "task": "Вчерашняя серия: 12 400 просмотров, удержание выше среднего",
+   "since": "2026-10-12T16:08:43+00:00"
+  },
+  "cfo": {
+   "name": "Финансы",
+   "role": "Следит за бюджетом и доходами",
+   "state": "working",
+   "task": "Считаю смету: 2 сцены по 6 с ≈ $0.74",
+   "since": "2026-10-12T16:21:43+00:00"
+  },
+  "bizdev": {
+   "name": "Монетизация",
+   "role": "Ищет рекламу, партнёрки и продукты",
+   "state": "idle",
+   "task": "Свободен до понедельника",
+   "since": "2026-10-12T15:24:43+00:00"
+  }
+ },
+ "pipeline": [
+  {
+   "id": "ep-0005",
+   "title": "Grandpa vs. the smart fridge",
+   "stage": "published",
+   "updated": "2026-10-11T20:24:43+00:00",
+   "links": {
+    "youtube": "https://youtube.com",
+    "instagram": "https://instagram.com"
+   }
+  },
+  {
+   "id": "ep-0006",
+   "title": "Who taught the toaster to talk?",
+   "stage": "approval",
+   "updated": "2026-10-12T13:24:43+00:00",
+   "links": {}
+  },
+  {
+   "id": "ep-0007",
+   "title": "Robot vacuum has a crush",
+   "stage": "script",
+   "updated": "2026-10-12T16:18:43+00:00",
+   "links": {}
+  }
+ ],
+ "metrics": {
+  "youtube_subscribers": 1284,
+  "instagram_followers": 932,
+  "views_on_our_episodes": 48210,
+  "episodes_published": 5,
+  "budget_spent_usd": 6.4,
+  "budget_limit_usd": 22,
+  "revenue_total_usd": 0
+ },
+ "feed": [
+  {
+   "t": "2026-10-12T16:22:43+00:00",
+   "agent": "director",
+   "text": "Сценарий вернул шоураннеру: хук слабый, нужен вопрос в первую секунду",
+   "kind": "warning"
+  },
+  {
+   "t": "2026-10-12T16:21:43+00:00",
+   "agent": "cfo",
+   "text": "Смета на сегодня: $0.74 из дневных $0.69 — разрешаю резерв, тренд сильный",
+   "kind": "money"
+  },
+  {
+   "t": "2026-10-12T16:18:43+00:00",
+   "agent": "showrunner",
+   "text": "Пишу сценарий: «Robot vacuum has a crush»",
+   "kind": "info"
+  },
+  {
+   "t": "2026-10-12T16:15:43+00:00",
+   "agent": "director",
+   "text": "Решение: снимаем серию на тренд «офисные суеверия»",
+   "kind": "info"
+  },
+  {
+   "t": "2026-10-12T16:10:43+00:00",
+   "agent": "trend-scout",
+   "text": "Нашёл 4 тренда: лучший — «офисные суеверия»",
+   "kind": "success"
+  },
+  {
+   "t": "2026-10-12T16:08:43+00:00",
+   "agent": "analyst",
+   "text": "Вчерашняя серия: 12 400 просмотров, удержание выше среднего",
+   "kind": "success"
+  },
+  {
+   "t": "2026-10-12T16:03:43+00:00",
+   "agent": "owner",
+   "text": "Указание собственника: попробуйте серию про умный дом",
+   "kind": "info"
+  },
+  {
+   "t": "2026-10-12T16:02:43+00:00",
+   "agent": "director",
+   "text": "Рабочий день начался",
+   "kind": "success"
+  }
+ ]
+}

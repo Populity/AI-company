@@ -1,0 +1,64 @@
+name: "Telegram: ответы собственника"
+
+# Каждые 20 минут читает, что ты нажал или написал боту:
+# одобрил ролик → он публикуется; написал указание → оно уходит директору.
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: company-state
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      FAL_KEY: ${{ secrets.FAL_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_OWNER_ID: ${{ secrets.TELEGRAM_OWNER_ID }}
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PYTHONUTF8: "1"
+    steps:
+      - name: Есть ли настроенный бот
+        id: gate
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "Telegram ещё не настроен"; fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.skip != '1'
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.skip != '1'
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+
+      - name: Прочитать ответы и выполнить
+        if: steps.gate.outputs.skip != '1'
+        run: |
+          pip install -q -r tools/requirements.txt
+          git config user.name "AI Company"
+          git config user.email "ai-company@users.noreply.github.com"
+          python tools/telegram_bot.py poll
+
+      - name: Сохранить
+        if: always() && steps.gate.outputs.skip != '1'
+        run: |
+          git add -A company config
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "Ответы собственника $(TZ=Europe/Moscow date '+%d.%m %H:%M')"
+          git pull -q --rebase origin "${GITHUB_REF_NAME}"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"

@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Офис компании</title>
+<meta name="description" content="Офис AI-компании в прямом эфире: кто чем занят, ролики, цифры и лента событий.">
+<meta name="theme-color" content="#24364f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'><rect width='16' height='16' fill='%2324364f'/><rect x='3' y='3' width='10' height='7' fill='%239fe3ff'/><rect x='6' y='11' width='4' height='2' fill='%23f2b632'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #22304a;
+    --ink-soft: #55627a;
+    --paper: #e9eef2;
+    --panel: #f7f9fb;
+    --line: #c5d0da;
+    --wall: #2f6f73;
+    --lamp: #f2b632;
+    --ok: #3f9a5f;
+    --warn: #c98a1a;
+    --bad: #c8443d;
+    --money: #2c8a7a;
+    --pixel: "Pixelify Sans", "Golos Text", system-ui, sans-serif;
+    --text: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #e4ebf2; --ink-soft: #9aa9bb; --paper: #121a26; --panel: #1a2433; --line: #2d3b50;
+    }
+  }
+  :root[data-theme="dark"] { --ink: #e4ebf2; --ink-soft: #9aa9bb; --paper: #121a26; --panel: #1a2433; --line: #2d3b50; }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 16px/1.5 var(--text);
+    padding: 0 16px 40px; max-width: 1180px; margin-inline: auto;
+  }
+  a { color: inherit; text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--lamp); outline-offset: 2px; }
+
+  .top {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
+    padding: 20px 0 14px;
+  }
+  .top h1 { font: 600 clamp(26px, 6vw, 40px)/1 var(--pixel); margin: 0; letter-spacing: .5px; }
+  .top p { margin: 6px 0 0; color: var(--ink-soft); font-size: 14px; max-width: 46ch; }
+  .onair {
+    flex: none; display: flex; align-items: center; gap: 8px;
+    font: 600 14px/1 var(--pixel); padding: 8px 10px;
+    border: 2px solid var(--ink); background: var(--panel);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .onair .bulb { width: 12px; height: 12px; background: #7a8696; box-shadow: inset -2px -2px 0 rgba(0,0,0,.25); }
+  .onair.live .bulb { background: #ff4d3a; animation: blink 1.6s steps(2) infinite; }
+  .onair.live { color: #c2301f; }
+  @media (prefers-color-scheme: dark) { .onair.live { color: #ff8a7a; } }
+  @keyframes blink { 50% { opacity: .35; } }
+
+  .demo-note {
+    margin: 0 0 12px; padding: 10px 12px; font-size: 14px;
+    border: 2px dashed var(--line); background: var(--panel);
+  }
+
+  .layout { display: grid; gap: 18px; }
+  @media (min-width: 960px) {
+    .layout { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: start; }
+    .side { position: sticky; top: 12px; }
+  }
+
+  .office-frame {
+    border: 4px solid var(--ink); background: #10202a; line-height: 0;
+  }
+  canvas#office {
+    width: 100%; height: auto; display: block; image-rendering: pixelated; image-rendering: crisp-edges;
+    cursor: pointer; touch-action: manipulation;
+  }
+
+  .focus {
+    display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center;
+    background: var(--panel); border: 2px solid var(--ink); border-top: 0; padding: 12px;
+    min-height: 74px;
+  }
+  .focus canvas { width: 44px; height: 58px; image-rendering: pixelated; }
+  .focus .who { font: 600 18px/1.1 var(--pixel); }
+  .focus .role { color: var(--ink-soft); font-size: 13px; }
+  .focus .task { margin-top: 4px; font-size: 15px; }
+  .focus .since { color: var(--ink-soft); font-size: 12px; }
+
+  .roster { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .roster button {
+    font: 500 13px/1 var(--text); color: var(--ink); background: var(--panel);
+    border: 2px solid var(--line); padding: 7px 9px 7px 7px; display: flex; align-items: center; gap: 6px;
+    cursor: pointer;
+  }
+  .roster button[aria-pressed="true"] { border-color: var(--ink); }
+  .roster .dot { width: 10px; height: 10px; flex: none; }
+  .roster .st { width: 8px; height: 8px; border-radius: 50%; background: #9aa5b3; }
+  .roster .st.working { background: var(--lamp); }
+  .roster .st.done { background: var(--ok); }
+  .roster .st.waiting { background: var(--warn); }
+  .roster .st.error { background: var(--bad); }
+
+  h2 { font: 600 20px/1.2 var(--pixel); margin: 0 0 10px; }
+  section.block { background: var(--panel); border: 2px solid var(--line); padding: 14px; }
+
+  .board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; background: var(--line); border: 2px solid var(--line); }
+  .board > div { background: var(--panel); padding: 10px 12px; min-width: 0; }
+  .board .num { font: 600 26px/1.1 var(--pixel); font-variant-numeric: tabular-nums; }
+  .board .lbl { font-size: 13px; color: var(--ink-soft); }
+  .board .wide { grid-column: 1 / -1; }
+  .bar { height: 12px; background: var(--paper); border: 2px solid var(--ink); margin-top: 6px; position: relative; }
+  .bar i { position: absolute; inset: 0 auto 0 0; background: var(--money); }
+  .bar.hot i { background: var(--bad); }
+
+  .eps { list-style: none; margin: 0; padding: 0; }
+  .eps li { padding: 10px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; }
+  .eps li:first-child { border-top: 0; padding-top: 0; }
+  .eps .t { font-weight: 600; overflow-wrap: anywhere; }
+  .eps .id { color: var(--ink-soft); font-size: 12px; }
+  .eps .stage { font-size: 13px; text-align: right; white-space: nowrap; }
+  .track { grid-column: 1 / -1; display: flex; gap: 3px; margin-top: 4px; }
+  .track span { flex: 1; height: 6px; background: var(--line); }
+  .track span.on { background: var(--ink); }
+  .track.rejected span.on { background: var(--warn); }
+  .track.failed span.on { background: var(--bad); }
+  .track.published span.on { background: var(--ok); }
+  .eps .links { grid-column: 1 / -1; font-size: 13px; display: flex; gap: 12px; }
+  .empty { color: var(--ink-soft); font-size: 14px; margin: 0; }
+
+  .feed { list-style: none; margin: 0; padding: 0; max-height: 560px; overflow: auto; }
+  .feed li { display: grid; grid-template-columns: 10px 1fr; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+  .feed li:first-child { border-top: 0; }
+  .feed .dot { width: 10px; height: 10px; margin-top: 6px; }
+  .feed .meta { font-size: 12px; color: var(--ink-soft); }
+  .feed .txt { font-size: 14.5px; overflow-wrap: anywhere; }
+  .feed li.success .txt { color: var(--ok); }
+  .feed li.error .txt { color: var(--bad); }
+  .feed li.warning .txt { color: var(--warn); }
+  .feed li.money .txt { color: var(--money); font-weight: 600; }
+  .feed li.fresh { animation: fresh 1.2s ease-out; }
+  @keyframes fresh { from { background: rgba(242,182,50,.35); } to { background: transparent; } }
+
+  .stack { display: grid; gap: 18px; }
+  footer { margin-top: 24px; font-size: 13px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  @media (prefers-reduced-motion: reduce) {
+    .onair.live .bulb, .feed li.fresh { animation: none; }
+  }
+</style>
+</head>
+<body data-repo="Populity/AI-company">
+  <header class="top">
+    <div>
+      <h1 id="company">Офис компании</h1>
+      <p id="niche">Загружаю офис…</p>
+    </div>
+    <div class="onair" id="onair" role="status"><span class="bulb" aria-hidden="true"></span><span id="onairText">…</span></div>
+  </header>
+
+  <p class="demo-note" id="demoNote" hidden>Это демонстрация: компания ещё не провела ни одного рабочего дня. Когда директор начнёт работу, здесь появится настоящий офис.</p>
+
+  <div class="layout">
+    <div class="stack">
+      <div>
+        <div class="office-frame">
+          <canvas id="office" width="256" height="208" aria-label="Пиксельный офис: сотрудники за столами и в зоне отдыха"></canvas>
+        </div>
+        <div class="focus" id="focus" aria-live="polite">
+          <canvas id="avatar" width="12" height="16" aria-hidden="true"></canvas>
+          <div>
+            <div class="who" id="fName">Директор</div>
+            <div class="role" id="fRole"></div>
+            <div class="task" id="fTask"></div>
+            <div class="since" id="fSince"></div>
+          </div>
+        </div>
+        <ul class="roster" id="roster" aria-label="Сотрудники"></ul>
+      </div>
+
+      <section class="block" aria-labelledby="h-eps">
+        <h2 id="h-eps">Ролики</h2>
+        <ol class="eps" id="eps"></ol>
+      </section>
+    </div>
+
+    <div class="stack side">
+      <section aria-labelledby="h-num">
+        <h2 id="h-num">Цифры</h2>
+        <div class="board" id="board"></div>
+      </section>
+      <section class="block" aria-labelledby="h-feed">
+        <h2 id="h-feed">Что происходит</h2>
+        <ol class="feed" id="feed"></ol>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <span id="updated">Ещё не обновлялось</span>
+    <a id="runLink" href="#" hidden>Рабочий день на GitHub</a>
+    <a id="repoLink" href="#">Репозиторий компании</a>
+  </footer>
+
+<script>
+(() => {
+  "use strict";
+
+  // ---------- где живут данные ----------
+  function detectRepo() {
+    const q = new URLSearchParams(location.search).get("repo");
+    if (q && q.includes("/")) return q;
+    if (location.hostname.endsWith(".github.io")) {
+      const owner = location.hostname.split(".")[0];
+      const repo = location.pathname.split("/").filter(Boolean)[0];
+      if (repo) return `${owner}/${repo}`;
+    }
+    return document.body.dataset.repo;
+  }
+  const REPO = detectRepo();
+  const API_URL = `https://api.github.com/repos/${REPO}/contents/office.json?ref=office-live`;
+  const RAW_URL = `https://raw.githubusercontent.com/${REPO}/office-live/office.json`;
+  document.getElementById("repoLink").href = `https://github.com/${REPO}`;
+
+  // ---------- сотрудники ----------
+  const PEOPLE = {
+    "director":    { name: "Директор",    hair: "#3b2a20", skin: "#f1c6a0", shirt: "#24364f", pants: "#1b2333", tie: "#c0392b" },
+    "trend-scout": { name: "Трендвотчер", hair: "#e3b04b", skin: "#f3cfae", shirt: "#ef7d3c", pants: "#3a3f4b", cap: "#2f6f73" },
+    "showrunner":  { name: "Шоураннер",   hair: "#7b4bd8", skin: "#e8b48f", shirt: "#d94a7c", pants: "#2b2b38" },
+    "producer":    { name: "Продакшн",    hair: "#1e1e1e", skin: "#c98d63", shirt: "#2f9b62", pants: "#2a3340", headset: true },
+    "publisher":   { name: "SMM",         hair: "#b8532a", skin: "#f4d2b5", shirt: "#3fa1cf", pants: "#33394a" },
+    "analyst":     { name: "Аналитик",    hair: "#5a4434", skin: "#e2b08b", shirt: "#7b8794", pants: "#2c3140", glasses: true },
+    "cfo":         { name: "Финансы",     hair: "#a9afb6", skin: "#f0c7a4", shirt: "#e5b93a", pants: "#2e3442", glasses: true },
+    "bizdev":      { name: "Монетизация", hair: "#2a1c14", skin: "#a9714b", shirt: "#8e5bb5", pants: "#262b38" },
+  };
+  const ORDER = Object.keys(PEOPLE);
+  const STATE_LABEL = { working: "работает", done: "закончил", waiting: "ждёт", error: "проблема", idle: "свободен", offline: "нет на месте" };
+
+  // ---------- карта офиса (логические пиксели) ----------
+  const W = 256, H = 208, CORRIDOR = 148, CABIN_X = 178, DOOR_X = 211;
+  const DESKS = {
+    "trend-scout": { x: 12,  y: 54 },
+    "showrunner":  { x: 70,  y: 54 },
+    "producer":    { x: 128, y: 54 },
+    "publisher":   { x: 12,  y: 104 },
+    "analyst":     { x: 70,  y: 104 },
+    "cfo":         { x: 128, y: 104 },
+    "bizdev":      { x: 196, y: 118 },
+    "director":    { x: 196, y: 56, big: true },
+  };
+  const LOUNGE = {
+    "director": [232, 190], "trend-scout": [26, 186], "showrunner": [48, 190], "producer": [92, 188],
+    "publisher": [112, 194], "analyst": [146, 196], "cfo": [196, 200], "bizdev": [176, 172],
+  };
+
+  const cv = document.getElementById("office");
+  const ctx = cv.getContext("2d");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const sprites = {};
+  for (const key of ORDER) {
+    const d = DESKS[key];
+    sprites[key] = { key, x: d.x + 9, y: d.y - 14, tx: d.x + 9, ty: d.y - 14, path: [], state: "idle", seated: false, phase: Math.random() * 6 };
+  }
+  let selected = "director";
+  let office = null;
+  let tick = 0;
+
+  // ---------- рисование ----------
+  const R = (c, x, y, w, h) => { ctx.fillStyle = c; ctx.fillRect(x | 0, y | 0, w, h); };
+
+  function mskHour() {
+    return (new Date().getUTCHours() + 3) % 24 + new Date().getUTCMinutes() / 60;
+  }
+
+  function drawRoom(lightsOn) {
+    // пол: доски
+    for (let y = 28; y < H; y += 8) {
+      R(((y - 28) / 8) % 2 ? "#c58a58" : "#bb7f4e", 0, y, W, 8);
+      for (let x = (((y - 28) / 8) % 3) * 18; x < W; x += 54) R("#a96f42", x, y, 1, 8);
+    }
+    // ковёр зоны отдыха
+    R("#4f7f86", 10, 162, 156, 42); R("#5b8f96", 12, 164, 152, 38);
+    // стена
+    R("#2a6266", 0, 0, W, 28); R("#2f6f73", 0, 3, W, 23); R("#24575b", 0, 26, W, 3);
+    // окно с небом по московскому времени
+    const h = mskHour();
+    const night = h < 7 || h >= 20, dusk = (h >= 18 && h < 20) || (h >= 7 && h < 8.5);
+    const sky = night ? ["#0f1b33", "#1b2a4a"] : dusk ? ["#f2a65a", "#f7d08a"] : ["#7ec4f0", "#bfe6fb"];
+    const wx = 10;
+    R("#e6eef2", wx - 2, 3, 62, 21);
+    R(sky[0], wx, 5, 58, 9); R(sky[1], wx, 14, 58, 8);
+    R("#e6eef2", wx + 28, 5, 2, 17);
+    if (night) { R("#fff7c2", wx + 8, 8, 1, 1); R("#fff7c2", wx + 40, 12, 1, 1); R("#fff7c2", wx + 18, 17, 1, 1); R("#f4f1d0", wx + 48, 7, 3, 3); }
+    else { const cx = wx + 2 + (tick / 40 % 46); R("#ffffff", cx, 9, 9, 3); R("#ffffff", cx + 3, 7, 4, 2); }
+    // часы
+    R("#e6eef2", 80, 5, 17, 17); R("#24364f", 81, 6, 15, 15); R("#e6eef2", 82, 7, 13, 13);
+    const ang = (h % 12) / 12 * Math.PI * 2 - Math.PI / 2, angM = (h % 1) * Math.PI * 2 - Math.PI / 2;
+    for (let i = 0; i < 4; i++) R("#24364f", 88 + Math.cos(ang) * i, 13 + Math.sin(ang) * i, 1, 1);
+    for (let i = 0; i < 6; i++) R("#c0392b", 88 + Math.cos(angM) * i, 13 + Math.sin(angM) * i, 1, 1);
+    // табло «В эфире»
+    const live = office && office.cycle && office.cycle.status === "working";
+    R("#1b2333", 106, 7, 36, 13);
+    R(live && (reduceMotion || Math.floor(tick / 25) % 2) ? "#ff4d3a" : "#4a2a2a", 108, 9, 32, 9);
+    // портрет собственника
+    R("#c99a2e", 156, 2, 22, 24); R("#e9c35a", 157, 3, 20, 22); R("#2f4a6b", 159, 5, 16, 18);
+    R("#f1c6a0", 163, 8, 8, 7); R("#3b2a20", 163, 7, 8, 3); R("#1b2333", 161, 16, 12, 7); R("#f2b632", 164, 4, 6, 2);
+    // кабинет директора: стеклянные стены и дверь
+    R("rgba(180,225,235,.18)", CABIN_X + 2, 29, W - CABIN_X - 2, 63);
+    R("#9fd3dc", CABIN_X, 29, 2, 65);
+    R("#9fd3dc", CABIN_X, 92, DOOR_X - 8 - CABIN_X, 2); R("#9fd3dc", DOOR_X + 12, 92, W - DOOR_X - 12, 2);
+    R("#2f6f73", 243, 74, 8, 12); R("#3f9a5f", 240, 66, 14, 9); R("#4fb06e", 243, 62, 8, 5);  // растение
+    // зона отдыха: диван, кофемашина, кулер, растение, стол
+    R("#7a3b5e", 18, 172, 46, 9); R("#8f4a70", 18, 179, 46, 12); R("#6a3050", 16, 174, 4, 17); R("#6a3050", 62, 174, 4, 17);
+    R("#3a3f4b", 80, 158, 16, 18); R("#596173", 82, 160, 12, 7); R("#f2b632", 86, 170, 4, 3);
+    R("#d8dee6", 102, 162, 8, 14); R("#9fd3ff", 103, 156, 6, 7);
+    R("#3f9a5f", 124, 156, 12, 9); R("#2f6f73", 127, 165, 6, 8);
+    R("#7a5536", 170, 182, 56, 15); R("#8b6340", 172, 182, 52, 11);
+    R("#e6eef2", 240, 166, 9, 16); R("#9fd3ff", 241, 160, 7, 7);
+    if (!lightsOn) R("rgba(8,16,34,.42)", 0, 0, W, H);
+  }
+
+  function drawDesk(key, d) {
+    const s = sprites[key];
+    const w = d.big ? 40 : 30;
+    const working = s.seated && ["working", "done", "error"].includes(s.state);
+    R("#6b4a2f", d.x - 1, d.y + 1, w + 2, 13);
+    R("#8b6340", d.x, d.y, w, 11);
+    R("#9c7048", d.x, d.y, w, 2);
+    // монитор
+    const mx = d.x + (d.big ? 25 : 17);
+    R("#1b2333", mx, d.y - 7, 12, 9);
+    let scr = "#26324a";
+    if (working) scr = s.state === "error" ? "#ff6b5e" : (reduceMotion || (tick + s.phase * 10) % 40 > 3) ? "#9fe3ff" : "#c9f1ff";
+    R(scr, mx + 1, d.y - 6, 10, 6);
+    R("#1b2333", mx + 5, d.y + 2, 2, 2);
+    // табличка цвета отдела
+    R(PEOPLE[key].shirt, d.x + 2, d.y + 8, 5, 2);
+    if (d.big) { R("#e6eef2", d.x + 30, d.y + 3, 6, 5); R("#f2b632", d.x + 3, d.y + 4, 6, 3); }
+  }
+
+  function drawPerson(c, p, x, y, opts) {
+    // 12×16 спрайт; opts: walking, seated, frame
+    const f = opts.frame;
+    c.fillStyle = "rgba(0,0,0,.18)"; c.fillRect(x + 2, y + 15, 8, 2);
+    const px = (col, dx, dy, w = 1, h = 1) => { c.fillStyle = col; c.fillRect(x + dx, y + dy, w, h); };
+    // ноги
+    if (!opts.seated) {
+      const a = opts.walking ? (f % 2 ? 1 : -1) : 0;
+      px(p.pants, 3, 12 + (a > 0 ? 0 : 0), 2, 3 + (a > 0 ? 1 : 0));
+      px(p.pants, 7, 12, 2, 3 + (a < 0 ? 1 : 0));
+      px("#1b1b22", 3, 15, 2, 1); px("#1b1b22", 7, 15, 2, 1);
+    }
+    // тело
+    px(p.shirt, 2, 7, 8, 6);
+    if (p.tie) px(p.tie, 5, 7, 2, 4);
+    // руки
+    const typing = opts.typing && f % 2;
+    px(p.shirt, 1, 8, 1, 4); px(p.shirt, 10, 8, 1, 4);
+    px(p.skin, 1, typing ? 11 : 12, 1, 1); px(p.skin, 10, typing ? 12 : 11, 1, 1);
+    // голова
+    px(p.skin, 3, 2, 6, 5);
+    px(p.hair, 3, 1, 6, 2); px(p.hair, 2, 2, 1, 3); px(p.hair, 9, 2, 1, 2);
+    if (p.cap) { px(p.cap, 2, 0, 8, 2); px(p.cap, 8, 2, 3, 1); }
+    px("#1b1b22", 4, 4, 1, 1); px("#1b1b22", 7, 4, 1, 1);
+    if (p.glasses) { px("#1b1b22", 4, 4, 4, 1); }
+    if (p.headset) { px("#1b1b22", 2, 3, 1, 3); px("#1b1b22", 9, 3, 1, 3); px("#1b1b22", 3, 0, 6, 1); }
+    px("#b5735a", 5, 6, 2, 1);
+  }
+
+  function drawBubble(s) {
+    const x = Math.round(s.x) + 1, y = Math.round(s.y) - 11;
+    const icon = { working: "dots", waiting: "q", done: "ok", error: "bang" }[s.state];
+    if (!icon) return;
+    R("#ffffff", x, y, 11, 8); R("#ffffff", x + 4, y + 8, 2, 2);
+    R("#24364f", x - 1, y, 1, 8); R("#24364f", x + 11, y, 1, 8); R("#24364f", x, y - 1, 11, 1); R("#24364f", x, y + 8, 4, 1); R("#24364f", x + 6, y + 8, 5, 1);
+    if (icon === "dots") {
+      const n = reduceMotion ? 3 : 1 + Math.floor(tick / 12) % 3;
+      for (let i = 0; i < n; i++) R("#24364f", x + 2 + i * 3, y + 4, 2, 2);
+    } else if (icon === "q") {
+      R("#c98a1a", x + 4, y + 1, 3, 1); R("#c98a1a", x + 6, y + 2, 1, 2); R("#c98a1a", x + 5, y + 4, 1, 1); R("#c98a1a", x + 5, y + 6, 1, 1);
+    } else if (icon === "ok") {
+      R("#3f9a5f", x + 2, y + 4, 1, 1); R("#3f9a5f", x + 3, y + 5, 1, 1); R("#3f9a5f", x + 4, y + 6, 1, 1); R("#3f9a5f", x + 5, y + 5, 1, 1); R("#3f9a5f", x + 6, y + 4, 1, 1); R("#3f9a5f", x + 7, y + 3, 1, 1); R("#3f9a5f", x + 8, y + 2, 1, 1);
+    } else {
+      R("#c8443d", x + 5, y + 1, 2, 4); R("#c8443d", x + 5, y + 6, 2, 1);
+    }
+    if (s.key === selected) { R("#f2b632", x + 3, y - 4, 5, 2); }
+  }
+
+  // ---------- движение ----------
+  function targetFor(key, state) {
+    const d = DESKS[key];
+    if (["working", "done", "error"].includes(state)) return { x: d.x + (d.big ? 9 : 4), y: d.y - 14, seated: true };
+    if (state === "waiting") return { x: d.x + (d.big ? 42 : 32), y: d.y - 6, seated: false };
+    const l = LOUNGE[key];
+    return { x: l[0], y: l[1] - 14, seated: false };
+  }
+
+  function route(s, t) {
+    // по коридору: вниз/вверх до коридора → вдоль → к цели
+    const inCabin = (p) => p.x > CABIN_X && p.y < 92;
+    const pts = [];
+    if (inCabin(s)) pts.push({ x: DOOR_X - 2, y: s.y }, { x: DOOR_X - 2, y: CORRIDOR });
+    else pts.push({ x: s.x, y: CORRIDOR });
+    if (inCabin(t)) pts.push({ x: DOOR_X - 2, y: CORRIDOR }, { x: DOOR_X - 2, y: t.y });
+    else pts.push({ x: t.x, y: CORRIDOR });
+    pts.push({ x: t.x, y: t.y });
+    return pts;
+  }
+
+  function setTargets(teleport) {
+    for (const key of ORDER) {
+      const s = sprites[key];
+      const st = (office && office.agents && office.agents[key] && office.agents[key].state) || "idle";
+      const t = targetFor(key, st);
+      const changed = Math.abs(t.x - s.tx) > 0.5 || Math.abs(t.y - s.ty) > 0.5;
+      s.state = st;
+      if (!changed && !teleport) continue;
+      s.tx = t.x; s.ty = t.y; s.targetSeated = t.seated;
+      if (teleport || reduceMotion) { s.x = t.x; s.y = t.y; s.path = []; s.seated = t.seated; }
+      else { s.seated = false; s.path = route(s, t); }
+    }
+  }
+
+  function step() {
+    for (const key of ORDER) {
+      const s = sprites[key];
+      if (s.path.length) {
+        const p = s.path[0];
+        const dx = p.x - s.x, dy = p.y - s.y, dist = Math.hypot(dx, dy);
+        const v = 0.9;
+        if (dist <= v) { s.x = p.x; s.y = p.y; s.path.shift(); if (!s.path.length) s.seated = s.targetSeated; }
+        else { s.x += dx / dist * v; s.y += dy / dist * v; }
+        s.walking = true;
+      } else {
+        s.walking = false;
+        if (!s.seated && s.state === "idle" && !reduceMotion && Math.random() < 0.004) {
+          const l = LOUNGE[s.key];
+          s.path = [{ x: l[0] + (Math.random() * 20 - 10), y: l[1] - 14 + (Math.random() * 6 - 3) }];
+        }
+      }
+    }
+  }
+
+  function render() {
+    tick++;
+    const live = office && office.cycle && office.cycle.status === "working";
+    drawRoom(live || !office);
+    // порядок по глубине: кто ниже — рисуется позже
+    const items = [];
+    for (const key of ORDER) items.push({ y: DESKS[key].y + 6, draw: () => drawDesk(key, DESKS[key]) });
+    for (const key of ORDER) {
+      const s = sprites[key];
+      items.push({ y: s.seated ? DESKS[key].y - 1 : s.y + 15, draw: () => {
+        drawPerson(ctx, PEOPLE[key], Math.round(s.x), Math.round(s.y), {
+          walking: s.walking, seated: s.seated, typing: s.seated && s.state === "working" && !reduceMotion,
+          frame: Math.floor((tick + s.phase * 7) / (s.walking ? 8 : 14)),
+        });
+        if (key === selected) { R("rgba(242,182,50,.9)", Math.round(s.x) + 1, Math.round(s.y) + 16, 10, 1); }
+      }});
+    }
+    items.sort((a, b) => a.y - b.y).forEach((i) => i.draw());
+    for (const key of ORDER) drawBubble(sprites[key]);
+  }
+
+  function loop() {
+    step(); render();
+    requestAnimationFrame(loop);
+  }
+
+  // ---------- нажатия ----------
+  cv.addEventListener("click", (e) => {
+    const r = cv.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
+    let best = null, bestD = 18;
+    for (const key of ORDER) {
+      const s = sprites[key];
+      const d = Math.hypot(s.x + 6 - x, s.y + 8 - y);
+      if (d < bestD) { best = key; bestD = d; }
+    }
+    if (best) select(best);
+  });
+
+  function select(key) {
+    selected = key;
+    renderFocus();
+    document.querySelectorAll("#roster button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.key === key)));
+  }
+
+  // ---------- текст ----------
+  const rtf = new Intl.RelativeTimeFormat("ru", { numeric: "auto" });
+  function ago(iso) {
+    if (!iso) return "";
+    const sec = (new Date(iso).getTime() - Date.now()) / 1000;
+    const abs = Math.abs(sec);
+    if (abs < 60) return sec <= 0 ? "только что" : "через минуту";
+    if (abs < 3600) return rtf.format(Math.round(sec / 60), "minute");
+    if (abs < 86400) return rtf.format(Math.round(sec / 3600), "hour");
+    return rtf.format(Math.round(sec / 86400), "day");
+  }
+  const clock = (iso) => iso ? new Date(iso).toLocaleString("ru-RU", { timeZone: "Europe/Moscow", hour: "2-digit", minute: "2-digit", day: "numeric", month: "short" }) : "";
+  const fmt = (n) => (n === null || n === undefined || n === "") ? "—" : (typeof n === "number" ? n.toLocaleString("ru-RU") : n);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function drawAvatar(key) {
+    const c = document.getElementById("avatar").getContext("2d");
+    c.clearRect(0, 0, 12, 16);
+    drawPerson(c, PEOPLE[key], 0, 0, { frame: 0 });
+  }
+
+  function renderFocus() {
+    const a = (office && office.agents && office.agents[selected]) || {};
+    drawAvatar(selected);
+    document.getElementById("fName").textContent = a.name || PEOPLE[selected].name;
+    document.getElementById("fRole").textContent = a.role || "";
+    const st = a.state || "idle";
+    document.getElementById("fTask").textContent = a.task ? a.task : (STATE_LABEL[st] || "");
+    document.getElementById("fSince").textContent = a.since ? `${STATE_LABEL[st] || st}, ${ago(a.since)}` : "";
+  }
+
+  function renderRoster() {
+    const ul = document.getElementById("roster");
+    ul.innerHTML = ORDER.map((key) => {
+      const a = (office && office.agents && office.agents[key]) || {};
+      const st = a.state || "idle";
+      return `<li><button type="button" data-key="${key}" aria-pressed="${key === selected}" title="${esc(STATE_LABEL[st] || st)}">
+        <span class="dot" style="background:${PEOPLE[key].shirt}"></span>${esc(a.name || PEOPLE[key].name)}<span class="st ${st}"></span></button></li>`;
+    }).join("");
+    ul.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => select(b.dataset.key)));
+  }
+
+  const STAGES = ["idea", "script", "production", "review", "approval", "approved", "published"];
+  const STAGE_LABEL = { idea: "идея", script: "сценарий", production: "в производстве", review: "проверка", approval: "у собственника", approved: "одобрен", published: "опубликован", rejected: "на доработке", failed: "брак" };
+
+  function renderEpisodes() {
+    const list = ((office && office.pipeline) || []).slice().reverse().slice(0, 10);
+    const ol = document.getElementById("eps");
+    if (!list.length) { ol.innerHTML = `<li><p class="empty">Роликов пока нет. Первый появится в первый рабочий день.</p></li>`; return; }
+    ol.innerHTML = list.map((ep) => {
+      const idx = ep.stage === "rejected" || ep.stage === "failed" ? 4 : STAGES.indexOf(ep.stage);
+      const track = STAGES.map((_, i) => `<span class="${i <= idx ? "on" : ""}"></span>`).join("");
+      const links = Object.entries(ep.links || {}).map(([k, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${k === "youtube" ? "YouTube" : k === "instagram" ? "Instagram" : esc(k)}</a>`).join("");
+      return `<li><div><div class="t">${esc(ep.title)}</div><div class="id">${esc(ep.id)}, ${esc(ago(ep.updated))}</div></div>
+        <div class="stage">${esc(STAGE_LABEL[ep.stage] || ep.stage)}</div>
+        <div class="track ${esc(ep.stage)}" aria-hidden="true">${track}</div>${links ? `<div class="links">${links}</div>` : ""}</li>`;
+    }).join("");
+  }
+
+  function renderBoard() {
+    const m = (office && office.metrics) || {};
+    const spent = m.budget_spent_usd || 0, limit = m.budget_limit_usd || 0;
+    const pct = limit ? Math.min(100, spent / limit * 100) : 0;
+    document.getElementById("board").innerHTML = `
+      <div><div class="num">${fmt(m.youtube_subscribers)}</div><div class="lbl">подписчиков YouTube</div></div>
+      <div><div class="num">${fmt(m.instagram_followers)}</div><div class="lbl">подписчиков Instagram</div></div>
+      <div><div class="num">${fmt(m.views_on_our_episodes)}</div><div class="lbl">просмотров наших роликов</div></div>
+      <div><div class="num">${fmt(m.episodes_published)}</div><div class="lbl">роликов вышло</div></div>
+      <div class="wide"><div class="num">$${fmt(spent)} <small style="font-size:15px">из $${fmt(limit)}</small></div>
+        <div class="lbl">потрачено на генерацию в этом месяце</div>
+        <div class="bar ${pct > 85 ? "hot" : ""}"><i style="width:${pct}%"></i></div></div>
+      <div class="wide"><div class="num">$${fmt(m.revenue_total_usd || 0)}</div><div class="lbl">заработано всего</div></div>`;
+  }
+
+  let seenFeed = new Set();
+  function renderFeed(first) {
+    const items = ((office && office.feed) || []).slice(0, 40);
+    const ol = document.getElementById("feed");
+    if (!items.length) { ol.innerHTML = `<li><span></span><p class="empty">Пока тихо. События появятся, как только начнётся рабочий день.</p></li>`; return; }
+    ol.innerHTML = items.map((e) => {
+      const id = e.t + e.agent + e.text;
+      const fresh = !first && !seenFeed.has(id);
+      const who = PEOPLE[e.agent] ? PEOPLE[e.agent].name : e.agent === "owner" ? "Собственник" : "Система";
+      const color = PEOPLE[e.agent] ? PEOPLE[e.agent].shirt : e.agent === "owner" ? "#c99a2e" : "#7a8696";
+      return `<li class="${esc(e.kind || "info")}${fresh ? " fresh" : ""}"><span class="dot" style="background:${color}"></span>
+        <div><div class="meta">${esc(who)}, ${esc(clock(e.t))}</div><div class="txt">${esc(e.text)}</div></div></li>`;
+    }).join("");
+    seenFeed = new Set(items.map((e) => e.t + e.agent + e.text));
+  }
+
+  function renderHeader() {
+    const c = (office && office.company) || {};
+    document.getElementById("company").textContent = c.name || "Офис компании";
+    document.title = `${c.name || "Офис"} — в прямом эфире`;
+    document.getElementById("niche").textContent = c.niche ? `Ниша: ${c.niche}. Собственник: ${c.owner || "—"}` : "Ниша ещё не выбрана — директор выберет её в первый рабочий день";
+    const cyc = (office && office.cycle) || {};
+    const onair = document.getElementById("onair"), txt = document.getElementById("onairText");
+    const fresh = office && office.updated_at && (Date.now() - new Date(office.updated_at).getTime() < 90 * 60 * 1000);
+    if (cyc.status === "working" && fresh) { onair.classList.add("live"); txt.textContent = "Идёт рабочий день"; }
+    else {
+      onair.classList.remove("live");
+      txt.textContent = cyc.next_run ? `Следующий день ${ago(cyc.next_run)}` : "Офис закрыт";
+    }
+    document.getElementById("updated").textContent = office && office.updated_at ? `Обновлено ${ago(office.updated_at)} (${clock(office.updated_at)})` : "Ещё не обновлялось";
+    const run = document.getElementById("runLink");
+    if (cyc.run_url) { run.href = cyc.run_url; run.hidden = false; } else run.hidden = true;
+  }
+
+  function apply(data, demo, first) {
+    office = data;
+    document.getElementById("demoNote").hidden = !demo;
+    setTargets(first);
+    renderHeader(); renderRoster(); renderFocus(); renderBoard(); renderEpisodes(); renderFeed(first);
+  }
+
+  // ---------- загрузка: опрос каждые 20 секунд ----------
+  let first = true, lastJson = "", useRaw = false;
+  async function poll() {
+    try {
+      let res;
+      if (!useRaw) {
+        res = await fetch(API_URL, { headers: { Accept: "application/vnd.github.raw+json" }, cache: "no-cache" });
+        if (res.status === 403 || res.status === 429) { useRaw = true; }
+      }
+      if (useRaw) res = await fetch(`${RAW_URL}?t=${Math.floor(Date.now() / 60000)}`, { cache: "no-cache" });
+      if (res.status === 404) return loadDemo();
+      if (!res.ok) throw new Error(res.status);
+      const text = await res.text();
+      if (text !== lastJson) { lastJson = text; apply(JSON.parse(text), false, first); first = false; }
+      else { renderHeader(); }
+    } catch (e) {
+      if (first) return loadDemo();
+      document.getElementById("updated").textContent = "Нет связи с GitHub — пробую снова";
+    }
+  }
+  async function loadDemo() {
+    if (!first && office) return;
+    try {
+      const res = await fetch("demo-office.json", { cache: "no-cache" });
+      const demo = await res.json();
+      // демо всегда «сейчас»: сдвигаем все времена к текущему моменту
+      const shift = Date.now() - new Date(demo.updated_at).getTime();
+      const move = (iso) => iso ? new Date(new Date(iso).getTime() + shift).toISOString() : iso;
+      demo.updated_at = move(demo.updated_at);
+      demo.cycle.started_at = move(demo.cycle.started_at);
+      Object.values(demo.agents).forEach((a) => { a.since = move(a.since); });
+      demo.pipeline.forEach((p) => { p.updated = move(p.updated); });
+      demo.feed.forEach((f) => { f.t = move(f.t); });
+      apply(demo, true, true);
+    } catch (e) {
+      apply({ agents: {}, feed: [], pipeline: [], metrics: {}, cycle: {}, company: {} }, true, true);
+    }
+    first = false;
+  }
+
+  select("director");
+  poll();
+  setInterval(poll, 20000);
+  setInterval(() => { if (office) { renderHeader(); renderFocus(); } }, 30000);
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

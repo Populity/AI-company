@@ -1,0 +1,12 @@
+# секреты — никогда не в git
+.env
+*.secret
+
+# рабочие файлы генерации (видео тяжёлые, живут в fal.ai и Telegram)
+media/
+.office/
+__pycache__/
+*.pyc
+*.tmp
+.DS_Store
+Thumbs.db
