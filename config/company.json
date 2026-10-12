@@ -1,13 +1,13 @@
 {
-  "company_name": "AI Company",
+  "company_name": "Still Clocked In",
   "owner_name": "Собственник",
   "timezone": "Europe/Moscow",
   "language_content": "en",
   "language_reports": "ru",
   "audience": "worldwide, English-speaking",
   "format": "recurring AI character, vertical short series",
-  "niche": null,
-  "founded": null,
+  "niche": "Workplace comedy: a 1987 office-clerk ghost still 'at work', reacting to modern office life",
+  "founded": "2026-10-12",
   "platforms": {
     "youtube": {
       "enabled": true,
@@ -23,7 +23,7 @@
   },
   "approval": {
     "mode": "manual_until",
-    "manual_until": null,
+    "manual_until": "2026-10-26",
     "trial_days": 14,
     "note": "manual — всегда через собственника; auto — сразу; manual_until — через собственника до даты, потом автопилот"
   },
