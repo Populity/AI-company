@@ -1,0 +1,72 @@
+{
+  "series": "Still Clocked In",
+  "status": "scripted",
+  "title": "Pilot: This Meeting Could Be an Email",
+  "logline": "A 1987 ghost clerk sits through a modern meeting and delivers the verdict: it could have been an email.",
+  "hook": "Statement hook: absurd claim to camera in first second",
+  "format": "Meeting Autopsy",
+  "trend_refs": [
+    "niches.md #1 Office Ghost"
+  ],
+  "script": {
+    "scenes": [
+      {
+        "n": 1,
+        "duration": 6,
+        "keyframe_prompt": "Vertical 9:16 shot inside a modern open-space office, a glass meeting room at night with a laptop video call on a large screen showing blurred tiny faces. The same man from the reference image (ghost Walt) sits at the end of the conference table, semi-transparent with a cool cyan-blue glow, mustard-brown 1987 suit and paperclip tie, hands folded, looking straight into the camera with a deadpan weary expression, medium close-up chest up. Cold fluorescent light, warm desk lamp accent, photorealistic.",
+        "motion_prompt": "Static camera with a slow push-in over 6 seconds. Walt slowly blinks, leans slightly toward the camera and says in a dry low voice: \"I've been dead for thirty-nine years, and this meeting could still have been an email.\" Faint office hum, quiet laptop notification ping.",
+        "dialogue": "I've been dead for thirty-nine years, and this meeting could still have been an email."
+      },
+      {
+        "n": 2,
+        "duration": 5,
+        "keyframe_prompt": "Vertical 9:16, same glass meeting room, tight close-up of the same man from the reference image (ghost Walt), cyan glow, glasses with blue tape, moustache. He holds a single paperclip between two fingers, tired smirk, the blurred video call glowing behind him, shallow depth of field, cold fluorescent light.",
+        "motion_prompt": "Close-up, camera still. Walt sighs, the ceiling lamp above him flickers once, he places the paperclip neatly on the table and says flatly to the camera: \"Noted. I'm still clocked in.\" Soft table click, office hum.",
+        "dialogue": "Noted. I'm still clocked in."
+      }
+    ]
+  },
+  "youtube": {
+    "title": null,
+    "description": null,
+    "tags": []
+  },
+  "instagram": {
+    "caption": null
+  },
+  "hashtags": [],
+  "assets": {
+    "keyframes": [],
+    "clips": [],
+    "final_path": null,
+    "final_url": null,
+    "duration_s": null
+  },
+  "cost_usd": 0.0,
+  "qc": {
+    "passed": null,
+    "notes": null
+  },
+  "approval": {
+    "required": null,
+    "requested_at": null,
+    "decision": null,
+    "comment": null,
+    "decided_at": null
+  },
+  "publish": {},
+  "history": [
+    {
+      "t": "2026-10-12T16:42:52+00:00",
+      "status": "idea"
+    },
+    {
+      "t": "2026-10-12T16:43:35+00:00",
+      "status": "scripted",
+      "note": null
+    }
+  ],
+  "id": "ep-0001",
+  "created": "2026-10-12T16:42:52+00:00",
+  "updated": "2026-10-12T16:43:35+00:00"
+}
