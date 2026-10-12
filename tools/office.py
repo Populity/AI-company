@@ -203,6 +203,8 @@ def main() -> None:
 
     if args.cmd == "reset":
         state = _blank_state()
+        rebuild_pipeline(state)
+        rebuild_metrics(state)
         add_event(state, "system", "Офис открыт")
         publish(state)
         print("Офис сброшен")
