@@ -30,10 +30,11 @@
   "production": {
     "episodes_per_day": 1,
     "max_clips_per_episode": 4,
-    "max_seconds_per_episode": 30,
+    "max_seconds_per_episode": 40,
     "max_retries_per_clip": 1,
     "aspect_ratio": "9:16",
-    "captions": true
+    "captions": true,
+    "min_seconds_per_episode": 30
   },
   "budget": {
     "monthly_rub": 6000,
