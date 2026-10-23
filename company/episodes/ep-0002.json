@@ -1,0 +1,59 @@
+{
+  "series": "Still Clocked In",
+  "status": "review",
+  "title": "Touch Base | Day 14,255",
+  "logline": null,
+  "hook": null,
+  "format": null,
+  "trend_refs": [],
+  "script": {
+    "scenes": []
+  },
+  "youtube": {
+    "title": null,
+    "description": null,
+    "tags": []
+  },
+  "instagram": {
+    "caption": null
+  },
+  "hashtags": [],
+  "assets": {
+    "final_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3KH7fGSpLnltbinp8xOjxx8fD2m/99212b8b-d2c1-41c9-82f5-3775915611fb.mp4",
+    "higgsfield_media_id": "99212b8b-d2c1-41c9-82f5-3775915611fb",
+    "clips": [
+      "84eb0451-8e7d-4bd0-adb6-656872373a98",
+      "pov:1461aab4+87609bb5+vo 915e5bae",
+      "5c89f743-4f22-431f-932e-95a9bd9bb2bf"
+    ],
+    "duration_s": 32.6,
+    "source": "higgsfield hybrid: seedance_2_0_mini 480p→720p + POV stills + cloned voice"
+  },
+  "cost_usd": 0.0,
+  "qc": {
+    "passed": null,
+    "notes": null
+  },
+  "approval": {
+    "required": null,
+    "requested_at": null,
+    "decision": null,
+    "comment": null,
+    "decided_at": null
+  },
+  "publish": {},
+  "history": [
+    {
+      "t": "2026-10-23T12:33:08+00:00",
+      "status": "idea"
+    },
+    {
+      "t": "2026-10-23T12:33:27+00:00",
+      "status": "review",
+      "note": "Гибрид: ~12 кр. вместо 34. Речь сверена, субтитры исправлены (touched)."
+    }
+  ],
+  "id": "ep-0002",
+  "created": "2026-10-23T12:33:08+00:00",
+  "updated": "2026-10-23T12:33:27+00:00"
+}

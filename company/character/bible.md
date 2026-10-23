@@ -26,28 +26,43 @@
 - Коронная фраза: **"I'm still clocked in."**
 
 ## Мир
-- Одно место: современный open space компании «Brightloop-ish» (вымышленная, без логотипов): серые перегородки, мониторы, ноутбуки, переговорка с глассвол, кухня с кофемашиной, принтер. Стол Уолта в углу: бежевый ПК 1987, лампа, стопка бумаг, горшок с сухим растением. Офис подсвечен холодным флуоресцентным светом.
+- Одно место: современный open space компании без названия (вымышленная, без логотипов): серые перегородки, мониторы, ноутбуки, переговорка с глассвол, кухня с кофемашиной, принтер. Стол Уолта в углу: бежевый ПК 1987, лампа, стопка бумаг, горшок с сухим растением. Офис подсвечен холодным флуоресцентным светом.
 - Второстепенные:
   1. **Priya Nair**, 30 лет, тимлид, вечно в созвонах, единственная, кто иногда слышит скрип его стула. Добрая, загруженная.
-  2. **Mr. Gable (Gabe)**, призрак-менеджер «Shadow Boss», высокий силуэт в тёмной дымке без лица, только очки и галстук. Появляется лишь на отрицательных «Approved/Denied» штампах. Не говорит, шелестит бумагой. Против выходного.
+  2. **Mr. Gable**, призрак-менеджер «Shadow Boss», высокий силуэт в тёмной дымке без лица, только очки и галстук. Появляется лишь на отрицательных «Approved/Denied» штампах. Не говорит, шелестит бумагой. Против выходного.
   3. **Dot**, робот-пылесос офиса, единственный, кто реагирует на Уолта; общается писком. Союзник.
 
 ## Сквозная арка сезона 1
 Уолт добивается своего первого выходного за 39 лет. Нужно подписать форму «Form 27-B: Day Off», которую утверждает Shadow Boss. В каждой серии новая ситуация и один шаг: форма потеряна, нужна подпись, не тот цвет чернил, дедлайн, очередь на принтер и т. д. Финал сезона: выходной случается, но Уолт не знает, что делать (или возвращается). Правило: серия понятна и без арки, арка даёт лишь крючок в конце.
+
+## Формат сериала: видеодневник Walt (с 2026-10-22)
+Уолт нашёл в кладовке старую видеокамеру 1987 года и каждый день записывает дневник для того, кто
+когда-нибудь подпишет его форму. Серия — одна запись, минимум 30 с (обычно 30–33 с, ключевые серии до 40 с), 3–4 клипа:
+1. **Запись началась** (0–10 с): камера на штативе у его стола, Уолт смотрит в объектив, называет день
+   («Day fourteen thousand two hundred fifty-three.») и сразу хук — что случилось сегодня.
+2. **Что было** (10–20 с): Уолт берёт камеру в руки и показывает место происшествия в офисе
+   (ручная, чуть дрожащая съёмка) — новый поворот, эскалация.
+3. **Вывод и крючок** (20–30 с): снова у стола, панчлайн, затем крючок на завтра; щелчок табельных часов и
+   гудение лампы — запись обрывается (петля к началу следующей серии).
+Каждая серия продолжает вчерашнюю: последствия вчерашнего поворота, растущая арка, живые отношения с
+Priya, Mr. Gable и Dot. Зритель должен хотеть узнать, что будет завтра.
+Вид: тёплая зернистая картинка старой видеокамеры, мягкий фокус по краям, лёгкое дрожание в руках.
+Никаких надписей и цифр в кадре (дата/день звучат голосом, номер — в подписи ролика).
+Это сериал, а не выдача за реальную съёмку: ИИ-пометка на площадках обязательна.
 
 ## Повторяющиеся элементы (без штампа)
 Не обязательны в каждой серии, максимум 2 из них на серию, чередуем:
 - Фраза «I'm still clocked in.» (не чаще 1 раза в 3 серии как финал).
 - Скрепка как «валюта» эмоций.
 - Лампа мигает от его вздоха.
-- Счётчик «Days since last day off: 14,245» в углу кадра в некоторых сериях (число растёт).
+- Номер дня записи звучит голосом в начале каждой серии (растёт на 1 в день; текста в кадре нет).
 - Форма 27-B появляется на заднем плане.
 
 ## Форматы (5)
 1. **Meeting Autopsy**: Уолт разбирает современную встречу. "This meeting could have been a memo. I would know."
 2. **Then vs Now**: сравнение 1987 и сегодня (факс/чат, степлер/облако).
 3. **Day Off Quest**: шаг арки с формой 27-B.
-4. **Slack Translator**: переводит офисный жаргон на человеческий ("Let's circle back" = "Never").
+4. **Jargon Translator**: переводит офисный жаргон на человеческий ("Let's circle back" = "Never").
 5. **Ghost on Duty**: Уолт «помогает» невидимо (чинит принтер, ставит на паузу чужой микрофон), мини-сюжет.
 
 ## Никогда
@@ -72,10 +87,13 @@
 4. **Conflict**: спор с кофемашиной, которая просит «обновить» прошивку.
 5. **Cold open mid-action**: Уолт держит дверь принтеру, пока тот «думает». Ghost on Duty.
 6. **Confession**: шёпотом: "Don't tell Gable, but I read the Reply All."
-7. **Countdown**: "You have 10 seconds before the Teams call ends." Slack Translator: "Per my last email".
+7. **Countdown**: "You have 10 seconds before the video call ends." Jargon Translator: "Per my last email".
 8. **Then vs Now**: сравнивает факс и «Seen at 3:14 PM».
 9. **Silent gag**: без реплики до конца; Уолт 5 секунд моргает, на экране 247 непрочитанных; панчлайн в конце.
 10. **Cliffhanger**: Gable ставит штамп DENIED на форме; Уолт: "Fine. Then I'll go over his head." (смотрит вверх на потолок).
+
+## Эталоны
+- Основной (фронт, в рост): Higgsfield job `502401a4-7764-4088-8228-f013480b5d51` (вариант B, 2026-10-23) — https://d8j0ntlcm91z4.cloudfront.net/user_3KH7fGSpLnltbinp8xOjxx8fD2m/hf_20261023_114443_502401a4-7764-4088-8228-f013480b5d51.png . Выбран директором: видна изолента на левой дужке, ноги тают в пиксели. Минус: верх тела почти непрозрачный — в кадрах просить «semi-transparent torso».
 
 ## Портрет-эталон (portrait_prompt)
 Full-body vertical 9:16 portrait of Walt Haskell, a tall, slightly hunched adult male office-worker ghost of about 52, narrow long face, receding hairline with thin sandy-grey hair combed to the side and one stray strand, thick bushy grey-brown toothbrush moustache, heavy-lidded tired kind eyes with bags, round thick horn-rimmed glasses with the left temple wrapped in blue electrical tape. He wears a mustard-brown 1987 polyester suit with wide lapels, a beige shirt with an oversized collar, a wide rust-coloured tie patterned with tiny paperclips, a plastic name badge reading "HASKELL A.P. 1987" and three ballpoint pens in the breast pocket, brown leather shoes. Body is semi-transparent with a soft cool cyan-blue ghostly glow and light rim light; below the waist the legs fade into drifting cyan pixels and wisps. Neutral expression, patient weary look straight at camera, arms relaxed at his sides. Plain neutral light-grey studio background, soft even lighting, photorealistic cinematic, sharp face details, no text besides the badge, no logos.
