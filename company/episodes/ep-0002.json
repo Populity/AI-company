@@ -10,14 +10,26 @@
     "scenes": []
   },
   "youtube": {
-    "title": null,
-    "description": null,
-    "tags": []
+    "title": "Touch Base | Day 14,255",
+    "description": "Season 1, Episode 2 of 30. Priya says she wants to touch base. Walt takes it literally and goes looking for the base of the lamp, the cabinet, the plant. Something under the cabinet is beeping.\nWhich office phrase should Walt translate next?\nNew entry every day. Subscribe to follow Walt's diary and the Form 27-B storyline.\nAI-generated character. Original series.",
+    "tags": [
+      "office humor",
+      "office ghost",
+      "Still Clocked In",
+      "workplace comedy"
+    ]
   },
   "instagram": {
-    "caption": null
+    "caption": "Priya wants to 'touch base.' Walt is on it.\nDay 14,255 of Walt's diary. Jargon, translated by a man from 1987.\nWhich office phrase should Walt translate next?"
   },
-  "hashtags": [],
+  "hashtags": [
+    "#StillClockedIn",
+    "#OfficeGhost",
+    "#OfficeHumor",
+    "#OfficeJargon",
+    "#CorporateSpeak",
+    "#aigenerated"
+  ],
   "assets": {
     "final_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3KH7fGSpLnltbinp8xOjxx8fD2m/99212b8b-d2c1-41c9-82f5-3775915611fb.mp4",
     "higgsfield_media_id": "99212b8b-d2c1-41c9-82f5-3775915611fb",
@@ -41,7 +53,9 @@
     "comment": null,
     "decided_at": null
   },
-  "publish": {},
+  "publish": {
+    "pinned_comment": "Drop an office phrase you'd like Walt to take literally. Tomorrow: who is beeping under the cabinet?"
+  },
   "history": [
     {
       "t": "2026-10-23T12:33:08+00:00",

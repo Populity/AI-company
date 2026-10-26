@@ -27,14 +27,25 @@
     ]
   },
   "youtube": {
-    "title": null,
-    "description": null,
-    "tags": []
+    "title": "This Meeting Could Be an Email | Day 14,254",
+    "description": "Season 1, Episode 1 of 30. Walt found a video camera from 1987 in the supply closet and started a diary. Entry one: a meeting, and a plan to file for his first day off in 39 years.\nWhat's the longest meeting you've ever survived?\nNew entry every day. Subscribe to follow Walt's diary and the Form 27-B storyline.\nAI-generated character. Original series.",
+    "tags": [
+      "office humor",
+      "office ghost",
+      "Still Clocked In",
+      "workplace comedy"
+    ]
   },
   "instagram": {
-    "caption": null
+    "caption": "Dead for 39 years, and this meeting could still be an email.\nDay 14,254 of Walt's diary. Meet Walt: office ghost, video diarist, still clocked in.\nWhat's the longest meeting you've ever survived?"
   },
-  "hashtags": [],
+  "hashtags": [
+    "#StillClockedIn",
+    "#OfficeGhost",
+    "#OfficeHumor",
+    "#MeetingHumor",
+    "#aigenerated"
+  ],
   "assets": {
     "final_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3KH7fGSpLnltbinp8xOjxx8fD2m/39c907c3-f265-4da5-a94f-5eab1cac5e6f.mp4",
     "higgsfield_media_id": "39c907c3-f265-4da5-a94f-5eab1cac5e6f",
@@ -58,7 +69,9 @@
     "comment": null,
     "decided_at": null
   },
-  "publish": {},
+  "publish": {
+    "pinned_comment": "Poll: a meeting that could have been an email, or an email that could have been a meeting? Which one is worse? Tomorrow: Priya wants to 'touch base.'"
+  },
   "history": [
     {
       "t": "2026-10-12T16:42:52+00:00",
