@@ -1,0 +1,67 @@
+{
+  "series": "Still Clocked In",
+  "status": "review",
+  "title": "Form 27-B, Step 1: Find the Form | Day 14,256",
+  "logline": null,
+  "hook": null,
+  "format": null,
+  "trend_refs": [],
+  "script": {
+    "scenes": []
+  },
+  "youtube": {
+    "title": "Form 27-B, Step 1: Find the Form | Day 14,256",
+    "description": "Season 1, Episode 3 of 30. The beeping under the cabinet is Dot, and she's pushing a dusty form that went missing in 1991. It has three blanks: a boss's signature, the right ink, and a witness.\nWould you sign Walt's form, no questions asked?\nNew entry every day. Subscribe to follow Walt's diary and the Form 27-B storyline.\nAI-generated character. Original series.",
+    "tags": [
+      "office humor",
+      "office ghost",
+      "Still Clocked In",
+      "workplace comedy"
+    ]
+  },
+  "instagram": {
+    "caption": "Ignore the paperclips. They float when Walt is hopeful.\nDay 14,256 of Walt's diary. Form 27-B, Step 1: the day-off quest begins.\nWould you sign Walt's form, no questions asked?"
+  },
+  "hashtags": [
+    "#StillClockedIn",
+    "#OfficeGhost",
+    "#OfficeHumor",
+    "#Form27B",
+    "#DayOffQuest",
+    "#aigenerated"
+  ],
+  "assets": {
+    "final_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3KH7fGSpLnltbinp8xOjxx8fD2m/f30c63a7-9fce-4f0a-b828-5b4e7b657cca.mp4",
+    "duration_s": 30.5,
+    "source": "hybrid: Wan2.2 (HF free) + Kling 3.0 Turbo + still zoom; voice Chatterbox (HF free) + seed_audio"
+  },
+  "cost_usd": 0.0,
+  "qc": {
+    "passed": null,
+    "notes": null
+  },
+  "approval": {
+    "required": null,
+    "requested_at": null,
+    "decision": null,
+    "comment": null,
+    "decided_at": null
+  },
+  "publish": {
+    "pinned_comment": "Signature, ink or witness: which of the three blanks on Form 27-B would be hardest to get at your job? Tomorrow: Priya has been staring at a screen for six hours."
+  },
+  "history": [
+    {
+      "t": "2026-10-26T03:57:53+00:00",
+      "status": "idea"
+    },
+    {
+      "t": "2026-10-26T03:57:56+00:00",
+      "status": "review",
+      "note": "30.5 с. Голос за кадром. Расход ~13.6 кр. Higgsfield (3 кадра 0.75 + Kling 12 + голос 0.8), остальное бесплатно через HF."
+    }
+  ],
+  "id": "ep-0003",
+  "created": "2026-10-26T03:57:53+00:00",
+  "updated": "2026-10-26T03:57:56+00:00"
+}
