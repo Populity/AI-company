@@ -1,0 +1,53 @@
+{
+  "series": "Still Clocked In",
+  "status": "review",
+  "title": "Form 27-B, Step 1: Find the Form | Day 14,256",
+  "logline": null,
+  "hook": null,
+  "format": null,
+  "trend_refs": [],
+  "script": {
+    "scenes": []
+  },
+  "youtube": {
+    "title": null,
+    "description": null,
+    "tags": []
+  },
+  "instagram": {
+    "caption": null
+  },
+  "hashtags": [],
+  "assets": {
+    "final_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3KH7fGSpLnltbinp8xOjxx8fD2m/f30c63a7-9fce-4f0a-b828-5b4e7b657cca.mp4",
+    "duration_s": 30.5,
+    "source": "hybrid: Wan2.2 (HF free) + Kling 3.0 Turbo + still zoom; voice Chatterbox (HF free) + seed_audio"
+  },
+  "cost_usd": 0.0,
+  "qc": {
+    "passed": null,
+    "notes": null
+  },
+  "approval": {
+    "required": null,
+    "requested_at": null,
+    "decision": null,
+    "comment": null,
+    "decided_at": null
+  },
+  "publish": {},
+  "history": [
+    {
+      "t": "2026-10-26T03:57:53+00:00",
+      "status": "idea"
+    },
+    {
+      "t": "2026-10-26T03:57:56+00:00",
+      "status": "review",
+      "note": "30.5 с. Голос за кадром. Расход ~13.6 кр. Higgsfield (3 кадра 0.75 + Kling 12 + голос 0.8), остальное бесплатно через HF."
+    }
+  ],
+  "id": "ep-0003",
+  "created": "2026-10-26T03:57:53+00:00",
+  "updated": "2026-10-26T03:57:56+00:00"
+}
